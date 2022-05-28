@@ -27,6 +27,7 @@ export default function Logo(props: { parentProps?: any, svgProps?: any, textPro
             <Text fontFamily={'heading'}
                 fontWeight="bold"
                 textAlign={useBreakpointValue({ base: 'left', md: 'left' })}
+                textDecoration="none"
                 {...textProps}
             >Buidl Protocol</Text>
         </Stack>

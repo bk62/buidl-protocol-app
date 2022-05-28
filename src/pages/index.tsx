@@ -10,18 +10,14 @@ import {
 import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
 
 import { Hero } from '../components/landing/Hero'
-import { Container } from '../components/layout/Container'
-import { Main } from '../components/layout/Main'
 import { CTA } from '../components/landing/CTA'
-import { Footer } from '../components/navigation/Footer'
 import { Features } from "../components/landing/Features"
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { fa1, fa2, fa3 } from '@fortawesome/free-solid-svg-icons'
 
-import Nav from "../components/navigation/Navbar";
-
+import { getDefaultLayout } from "../components/layout/Layout"
 
 import React from "react";
 import {
@@ -36,60 +32,64 @@ import {
 
 const features = [
   {
-    title: "Unify your payments stack",
+    title: "Raise funds by showcasing your Web3 projects and ideas",
     icon: <path
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
     />,
-    text: `Manage all your online and offline sales in one place with a single
-                    integration, simplifying reporting and reconciliation.Terminal works
-                    seamlessly with Payments, Connect, and Billing.`,
+    text: `Your profiles are NFTs on the Buidl Hub contract. Your metadata is stored on
+    IPFS + Filecoin via NFT.storage. Your profile metadata stores your Github username and your project metadata
+    stores your Github project repository name.`,
   },
   {
-    title: "Unify your payments stack",
+    title: "Build your community of early adopters, backers and investors by rewarding them",
     icon: <path
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
     />,
-    text: `Manage all your online and offline sales in one place with a single
-                    integration, simplifying reporting and reconciliation.Terminal works
-                    seamlessly with Payments, Connect, and Billing.`,
+    text: `Backers and investors are issued backer and investor NFTs. [Extension: that track your Github metadata (i.e. stars and forks)].
+    Issue ERC-20s to backers based on fiat USD price per token via Chainlink pricefeeds. If and when your project takes off,
+    take your early investors with you!
+    `,
   },
   {
-    title: "Unify your payments stack",
+    title: "Leverage Defi to make backers and investors offers they can't refuse",
     icon: <path
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
       d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
     />,
-    text: `Manage all your online and offline sales in one place with a single
-                    integration, simplifying reporting and reconciliation.Terminal works
-                    seamlessly with Payments, Connect, and Billing.`,
+    text: `Create ERC-4626 compatible "Yield Trust Vaults" that deposit into Aave Lending pools. 
+    Your supporters can withdraw their entire deposit any time they want, and you get to claim the
+    yield on the deposits to support your #Buidling. [Extension: use PoolTogether's TWAP implementation and Chainlink keeper to routinely reward depositors for keeping their
+    tokens in the vault.]
+    You get to build cool projects, your community
+    gets to support you and inventivize building. Win-win!`,
   },
 ]
 
 const steps = [
   {
-    title: "Unify your payments stack",
+    title: "Create a profile",
     icon: <FontAwesomeIcon icon={fa1} />,
-    text: `Manage all your online and offline sales in one place with a single
+    text: `Showcase all your Web3 projects in one place with a single
                     integration, simplifying reporting and reconciliation.Terminal works
                     seamlessly with Payments, Connect, and Billing.`,
   },
   {
-    title: "Unify your payments stack",
+    title: "Attract investors for your projects",
     icon: <FontAwesomeIcon icon={fa2} />,
     text: `Manage all your online and offline sales in one place with a single
                     integration, simplifying reporting and reconciliation.Terminal works
                     seamlessly with Payments, Connect, and Billing.`,
   },
   {
-    title: "Unify your payments stack",
+    title: "Succeed together!",
     icon: <FontAwesomeIcon icon={fa3} />,
     text: `Manage all your online and offline sales in one place with a single
                     integration, simplifying reporting and reconciliation.Terminal works
@@ -102,50 +102,13 @@ const Index = () => (
     <Head>
       <title>Buidl Protocol</title>
     </Head>
-    <Nav />
-    {/* <Container> */}
     <Hero />
     <Features features={features} />
     <CTA />
     <Features features={steps} />
-
-    {/* </Container> */}
-    <Footer />
-
-
-    {/* <Main>
-        <Text color="text">
-          Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-          <Code>TypeScript</Code>.
-        </Text>
-
-        <List spacing={3} my={0} color="text">
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="green.500" />
-            <ChakraLink
-              isExternal
-              href="https://chakra-ui.com"
-              flexGrow={1}
-              mr={2}
-            >
-              Chakra UI <LinkIcon />
-            </ChakraLink>
-          </ListItem>
-          <ListItem>
-            <ListIcon as={CheckCircleIcon} color="green.500" />
-            <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-              Next.js <LinkIcon />
-            </ChakraLink>
-          </ListItem>
-        </List>
-      </Main>
-
-
-      <Footer>
-        <Text>Next ❤️ Chakra</Text>
-      </Footer>
-      <CTA /> */}
   </>
 )
+
+Index.getLayout = getDefaultLayout
 
 export default Index

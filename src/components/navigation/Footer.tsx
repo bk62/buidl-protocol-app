@@ -49,8 +49,14 @@ const SocialButton = ({
 export function Footer() {
   return (
     <Box
+      as="footer"
+      transition="3s ease"
       bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}>
+      color={useColorModeValue('gray.700', 'gray.200')}
+      borderTop={1}
+      borderStyle={'solid'}
+      borderColor={useColorModeValue('gray.200', 'gray.900')}
+    >
       <Container
         as={Stack}
         maxW={'6xl'}
@@ -60,12 +66,25 @@ export function Footer() {
         justify={'center'}
         align={'center'}>
         <Logo />
-        <Stack direction={'row'} spacing={6}>
-          <Link href={'#'}>Projects</Link>
-          <Link href={'#'}>Grants</Link>
-          <Link href={'#'}>Challenges</Link>
-          <Link href={'#'}>About</Link>
-          <Link href={'#'}>Vision</Link>
+        <Stack direction={'row'} spacing={6} flexWrap="wrap">
+          <NextLink href="/" passHref>
+            <Link>Home</Link>
+          </NextLink>
+          <NextLink href="/profiles" passHref>
+            <Link>Profiles</Link>
+          </NextLink>
+          <NextLink href="/projects" passHref>
+            <Link>Projects</Link>
+          </NextLink>
+          <NextLink href="/about" passHref>
+            <Link>About</Link>
+          </NextLink>
+          <NextLink href="/vision" passHref>
+            <Link>Vision</Link>
+          </NextLink>
+          <NextLink href="/vision" passHref>
+            <Link>Partnerships</Link>
+          </NextLink>
         </Stack>
       </Container>
 

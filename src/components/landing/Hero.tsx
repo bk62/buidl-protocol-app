@@ -12,6 +12,7 @@ import {
   createIcon,
 } from '@chakra-ui/react';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
+import NextLink from "next/link";
 
 
 export function Hero() {
@@ -28,15 +29,13 @@ export function Hero() {
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
             fontWeight={{ base: 'bold', sm: 'semibold', md: 'extrabold' }}
             lineHeight={'110%'}>
-            Make money from{" "}
+            Get paid to{" "}
             <Text as={'span'} color={'green.400'}>
-              your audience
+              build your awesome Web3 projects
             </Text>
           </Heading>
           <Text color={'gray.500'}>
-            Monetize your content by charging your most loyal readers and reward
-            them loyalty points. Give back to your loyal readers by granting
-            them access to your pre-releases and sneak-peaks.
+            We help you raise funds at every stage of your Web3 #BUIDL projects so you can focus on learning, building cool projects and your community.
           </Text>
           <Stack
             direction={'row'}
@@ -44,35 +43,47 @@ export function Hero() {
             align={'center'}
             alignSelf={'center'}
             position={'relative'}>
+            <NextLink href={"/dashboard"} passHref>
+              <Button
+                colorScheme={'green'}
+                bg={'green.400'}
+                size={'lg'}
+                px={5}
+                py={3}
+                border="solid transparent"
+                rounded="md"
+                shadow="md"
+                _hover={{
+                  bg: 'green.500',
+                }}
+                rightIcon={<ArrowForwardIcon />}
+                fontWeight="bold"
+              >
+                Buidl to Earn
+              </Button>
+            </NextLink>
             <Button
-              colorScheme={'green'}
-              bg={'green.400'}
               size={'lg'}
               px={5}
               py={3}
               border="solid transparent"
               rounded="md"
               shadow="md"
-              _hover={{
-                bg: 'green.500',
-              }}
-              rightIcon={<ArrowForwardIcon />}
               fontWeight="bold"
             >
-              Get Started
-            </Button>
-            <Button
-              size={'lg'}
-              px={5}
-              py={3}
-              border="solid transparent"
-              rounded="md"
-              shadow="md"
-              fontWeight="bold"
-            >
-              Learn more
+              How it works
             </Button>
           </Stack>
+          <br /><br />
+          <Text color={'gray.500'}>
+            1. Learn to Earn: RabbitHole and Pointer
+          </Text>
+          <Text color={'gray.500'}>
+            2. Build your own projects to Earn: Buidl Protocol!
+          </Text>
+          <Text color={'gray.500'}>
+            3. Develop to Earn: Gitcoin
+          </Text>
         </Stack>
       </Container>
     </>

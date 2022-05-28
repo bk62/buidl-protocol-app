@@ -7,6 +7,7 @@ import {
   Stack,
   Link,
 } from "@chakra-ui/react";
+import NextLink from "next/link"
 
 export function CTA() {
   return (
@@ -46,7 +47,7 @@ export function CTA() {
               display="block"
               color={useColorModeValue("brand.600", "gray.500")}
             >
-              Start today.
+              Start buidling!
             </chakra.span>
           </chakra.h2>
           <Stack
@@ -54,25 +55,28 @@ export function CTA() {
             mt={{ base: 8, lg: 0 }}
             shrink={{ lg: 0 }}
           >
-            <Link
-              w={["full", , "auto"]}
-              display="inline-flex"
-              alignItems="center"
-              justifyContent="center"
-              px={5}
-              py={3}
-              border="solid transparent"
-              fontWeight="bold"
-              rounded="md"
-              shadow="md"
-              color={useColorModeValue("white", "gray.700")}
-              bg={useColorModeValue("gray.600", "gray.500")}
-              _hover={{
-                bg: useColorModeValue("gray.700", "gray.600"),
-              }}
-            >
-              Get started
-            </Link>
+            <NextLink href={"/dashboard"} passHref>
+              <Link
+                w={["full", , "auto"]}
+                display="inline-flex"
+                alignItems="center"
+                justifyContent="center"
+                px={5}
+                py={3}
+                border="solid transparent"
+                fontWeight="bold"
+                rounded="md"
+                shadow="md"
+                color={useColorModeValue("white", "gray.700")}
+                bg={useColorModeValue("gray.600", "gray.500")}
+                _hover={{
+                  bg: useColorModeValue("gray.700", "gray.600"),
+                }}
+              >
+                Buidl to earn
+              </Link>
+            </NextLink>
+
             <Link
               w={["full", , "auto"]}
               display="inline-flex"

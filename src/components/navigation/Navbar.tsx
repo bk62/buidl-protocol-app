@@ -22,27 +22,44 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
 } from '@chakra-ui/icons';
+import {
+    FiBell
+} from 'react-icons/fi';
+import { useAccount } from "wagmi";
 
 
 import { DarkModeSwitch } from './DarkModeSwitch'
 import Logo from "../Logo";
 
+import ConnectButton from "../auth/ConnectButton";
+
 
 export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
 
+    // wagmi - use to show nav for connected users
+    const accountQuery = useAccount();
+
+    const accountConnected = !!accountQuery.data && !!accountQuery.data?.address;
+
     return (
-        <Box>
+        <Box as="header">
             <Flex
-                bg={useColorModeValue('white', 'gray.800')}
-                color={useColorModeValue('gray.600', 'white')}
+                as="nav"
+                zIndex="banner"
+                transition="3s ease"
+                bg={useColorModeValue('white', 'darkbg.800')}
+                color={useColorModeValue('gray.600', 'gray.100')}
                 minH={'60px'}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
                 borderBottom={1}
                 borderStyle={'solid'}
-                borderColor={useColorModeValue('gray.200', 'gray.900')}
-                align={'center'}>
+                borderColor={useColorModeValue('gray.200', 'gray.700')}
+                align={'center'}
+                justify={'center'}
+
+            >
                 <Flex
                     flex={{ base: 1, md: 'auto' }}
                     ml={{ base: -2 }}
@@ -63,32 +80,26 @@ export default function Navbar() {
                         color={useColorModeValue('gray.800', 'white')}>
                         Buidl Protocol
                     </Text> */}
-                    <Logo textProps={{ fontSize: "2xl" }} />
+                    <NextLink href="/" passHref>
+                        <Link textDecoration="none">
+                            <Logo textProps={{ fontSize: { md: "2xl" } }} />
+                        </Link>
+                    </NextLink>
                     <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-                        <DesktopNav />
+                        <DesktopNav loggedIn={accountConnected} />
                     </Flex>
                 </Flex>
 
                 <Stack
                     flex={{ base: 1, md: 0 }}
                     justify={'flex-end'}
+                    align="center"
                     direction={'row'}
                     spacing={6}>
                     <DarkModeSwitch display={{ base: 'none', md: 'flex' }} />
-                    <Button
+                    <ConnectButton
                         display={{ md: 'inline-flex' }}
-                        fontSize={'sm'}
-                        fontWeight={600}
-                        color={'white'}
-                        href={'#'}
-                        bg={'blue.400'}
-                        _hover={{
-                            bg: 'blue.300',
-                        }}
-                    // colorScheme="green"
-                    >
-                        Connect Wallet
-                    </Button>
+                    />
                 </Stack>
             </Flex>
 
@@ -99,31 +110,48 @@ export default function Navbar() {
     );
 }
 
-const DesktopNav = () => {
+const DesktopNav = ({ loggedIn }) => {
     const linkColor = useColorModeValue('gray.600', 'gray.200');
     const linkHoverColor = useColorModeValue('gray.800', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
     return (
-        <Stack direction={'row'} spacing={4}>
+        <Stack direction={'row'} align="center" justify="center" spacing={4}>
+            {loggedIn &&
+                (<NextLink href={"/dashboard"} passHref>
+                    <Link
+                        p={2}
+                        fontSize={'sm'}
+                        fontWeight={500}
+                        color={linkColor}
+                        _hover={{
+                            textDecoration: 'none',
+                            color: linkHoverColor,
+                        }}>
+                        Dashboard
+                    </Link>
+                </NextLink>)
+            }
             {NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label}>
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
-                            <NextLink href={navItem.href}>
-                                <Link
-                                    p={2}
-                                    // href={navItem.href ?? '#'}
-                                    fontSize={'sm'}
-                                    fontWeight={500}
-                                    color={linkColor}
-                                    _hover={{
-                                        textDecoration: 'none',
-                                        color: linkHoverColor,
-                                    }}>
-                                    {navItem.label}
-                                </Link>
-                            </NextLink>
+                            <Box>
+                                <NextLink href={navItem.href}>
+                                    <Link
+                                        p={2}
+                                        // href={navItem.href ?? '#'}
+                                        fontSize={'sm'}
+                                        fontWeight={500}
+                                        color={linkColor}
+                                        _hover={{
+                                            textDecoration: 'none',
+                                            color: linkHoverColor,
+                                        }}>
+                                        {navItem.label}
+                                    </Link>
+                                </NextLink>
+                            </Box>
                         </PopoverTrigger>
 
                         {navItem.children && (
@@ -185,10 +213,12 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 const MobileNav = () => {
     return (
         <Stack
-            bg={useColorModeValue('white', 'gray.800')}
+            as="nav"
+            bg={useColorModeValue('bg.light.50', 'gray.800')}
             p={4}
             display={{ md: 'none' }}>
             <DarkModeSwitch display={{ base: 'flex', md: 'none' }} />
+            <MobileNavItem key="dashboard" href="/dashboard" label="Dashboard" />
             {NAV_ITEMS.map((navItem) => (
                 <MobileNavItem key={navItem.label} {...navItem} />
             ))}
@@ -236,8 +266,8 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                     align={'start'}>
                     {children &&
                         children.map((child) => (
-                            <NextLink href={child.href}>
-                                <Link key={child.label} py={2}>
+                            <NextLink href={child.href} key={child.label} passHref>
+                                <Link py={2}>
                                     {child.label}
                                 </Link>
                             </NextLink>
@@ -252,20 +282,16 @@ interface NavItem {
     label: string;
     subLabel?: string;
     children?: Array<NavItem>;
-    href?: string;
+    href: string;
 }
 
 const NAV_ITEMS: Array<NavItem> = [
     {
+        label: 'Profiles',
+        href: "/profiles/"
+    },
+    {
         label: 'Projects',
         href: "/projects/"
-    },
-    {
-        label: 'Grants',
-        href: "/grants/"
-    },
-    {
-        label: 'Challenges',
-        href: "/challenges/"
     }
 ];
